@@ -22,7 +22,7 @@ function Header() {
         </NavLink>
       </div>
       <div className="flex">
-        <NavLink to="login" className="header-link">
+        <NavLink to="/login" className="header-link">
           login
         </NavLink>
       </div>

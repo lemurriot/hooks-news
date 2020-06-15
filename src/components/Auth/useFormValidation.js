@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect } from 'react';
 
 function useFormValidation(initialState, validate, authenticate) {
   const [values, setValues] = useState(initialState);
@@ -12,16 +12,16 @@ function useFormValidation(initialState, validate, authenticate) {
         authenticate();
         setSubmitting(false);
       } else {
-        setSubmitting(false)
+        setSubmitting(false);
       }
     }
-  }, [errors])
+  }, [errors]);
 
   function handleChange(event) {
     event.persist();
-    setValues(prevValues => ({
+    setValues((prevValues) => ({
       ...prevValues,
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
     }));
   }
 
@@ -37,7 +37,14 @@ function useFormValidation(initialState, validate, authenticate) {
     setSubmitting(true);
   }
 
-  return { handleChange, handleBlur, handleSubmit, values, errors, isSubmitting }
+  return {
+    handleChange,
+    handleBlur,
+    handleSubmit,
+    values,
+    errors,
+    isSubmitting,
+  };
 }
 
 export default useFormValidation;

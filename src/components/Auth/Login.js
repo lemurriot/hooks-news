@@ -1,12 +1,12 @@
-import React, { useState } from "react";
-import useFormValidation from "./useFormValidation";
-import validateLogin from "./validateLogin";
+import React, { useState } from 'react';
+import useFormValidation from './useFormValidation';
+import validateLogin from './validateLogin';
 import firebase from '../../firebase';
 
 const INITIAL_STATE = {
-  name: "",
-  email: "",
-  password: "",
+  name: '',
+  email: '',
+  password: '',
 };
 
 function Login(props) {
@@ -24,18 +24,19 @@ function Login(props) {
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
-      const response = login ? await firebase.login(email, password) : await firebase.register(name, email, password);
+      const response = login
+        ? await firebase.login(email, password)
+        : await firebase.register(name, email, password);
       props.history.push('/');
     } catch (err) {
       console.error('Authentication Error', err);
       setFirebaseError(err.message);
     }
-    
   }
 
   return (
     <div>
-      <h2 className="mv3">{login ? "Login" : "Create Account"}</h2>
+      <h2 className="mv3">{login ? 'Login' : 'Create Account'}</h2>
       <form className="flex flex-column" onSubmit={handleSubmit}>
         {!login && (
           <input
@@ -70,7 +71,12 @@ function Login(props) {
         {errors.password && <p className="error-text">{errors.password}</p>}
         {firebaseError && <p className="error-text">{firebaseError}</p>}
         <div className="flex mt3">
-          <button type="submit" className="button pointer mr2" disabled={isSubmitting} style={{  background: isSubmitting ? 'grey' : 'orange' }}>
+          <button
+            type="submit"
+            className="button pointer mr2"
+            disabled={isSubmitting}
+            style={{ background: isSubmitting ? 'grey' : 'orange' }}
+          >
             Submit
           </button>
           <button
@@ -78,7 +84,7 @@ function Login(props) {
             className="pointer button"
             onClick={() => setLogin((prevLogin) => !prevLogin)}
           >
-            {login ? "need to create new account" : "already have an account?"}
+            {login ? 'need to create new account' : 'already have an account?'}
           </button>
         </div>
       </form>

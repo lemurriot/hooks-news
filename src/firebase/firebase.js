@@ -12,14 +12,14 @@ class Firebase {
     const newUser = await this.auth.createUserWithEmailAndPassword(
       email,
       password
-    )
+    );
     return await newUser.user.updateProfile({
-      displayName: name
-    })
+      displayName: name,
+    });
   }
 
   async login(email, password) {
-    return await this.auth.signInWithEmailAndPassword(email, password)
+    return await this.auth.signInWithEmailAndPassword(email, password);
   }
 }
 

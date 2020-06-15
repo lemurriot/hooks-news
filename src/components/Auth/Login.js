@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import useFormValidation from './useFormValidation';
 import validateLogin from './validateLogin';
 import firebase from '../../firebase';
@@ -24,7 +25,7 @@ function Login(props) {
   async function authenticateUser() {
     const { name, email, password } = values;
     try {
-      const response = login
+      login
         ? await firebase.login(email, password)
         : await firebase.register(name, email, password);
       props.history.push('/');
@@ -88,6 +89,7 @@ function Login(props) {
           </button>
         </div>
       </form>
+      <div className="forgot-password"><Link to="/forgot">Forgot Password?</Link></div>
     </div>
   );
 }

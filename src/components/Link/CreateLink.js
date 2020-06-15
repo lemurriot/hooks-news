@@ -10,10 +10,14 @@ const INITIAL_STATE = {
 
 function CreateLink(props) {
   const { firebase, user } = useContext(FirebaseContext);
-  const { handleSubmit, handleChange, values, errors } = useFormValidation(INITIAL_STATE, validateCreateLink, handleCreateLink);
+  const { handleSubmit, handleChange, values, errors } = useFormValidation(
+    INITIAL_STATE,
+    validateCreateLink,
+    handleCreateLink
+  );
   function handleCreateLink() {
     if (!user) {
-      props.history.push('/login')
+      props.history.push('/login');
     } else {
       const { url, description } = values;
       const newLink = {
@@ -21,12 +25,12 @@ function CreateLink(props) {
         description,
         postedBy: {
           id: user.uid,
-          name: user.displayName
+          name: user.displayName,
         },
         votes: [],
         comments: [],
         created: Date.now(),
-      }
+      };
       firebase.db.collection('links').add(newLink);
       props.history.push('/');
     }

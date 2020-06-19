@@ -5,6 +5,7 @@ import LinkItem from './LinkItem';
 function LinkList(props) {
   const { firebase } = useContext(FirebaseContext);
   const [links, setLinks] = useState([]);
+  const [loading, setLoading] = useState(false);
   const isNewPage = props.location.pathname.includes('new');
 
   useEffect(() => {
@@ -12,10 +13,12 @@ function LinkList(props) {
   }, []);
 
   function getLinks() {
+    setLoading(true)
     firebase.db
       .collection('links')
       .orderBy('created', 'desc')
       .onSnapshot(handleSnapshot);
+    setLoading(false);
   }
 
   function handleSnapshot(snapshot) {
@@ -23,6 +26,7 @@ function LinkList(props) {
       return { id: doc.id, ...doc.data() };
     });
     setLinks(links);
+    setLoading(false);
   }
 
   function renderLinks() {
@@ -36,7 +40,7 @@ function LinkList(props) {
     return topLinks;
   }
   return (
-    <div>
+    <div style={{ opacity: loading ? 0.25 :  1 }}>
       {renderLinks().map((link, index) => (
         <LinkItem
           key={link.id}
